@@ -39,6 +39,11 @@
                     </div>
                     <br>
                     <div class="card-footer">
+                        
+                        <div class="row d-flex m-2">
+                            <p class="card-title">Output</p>
+                            <textarea class="form-control" text="text" name="" id="outputArea" cols="30" rows="10" readonly></textarea>
+                        </div>
                         <div class="row d-flex">
                             <div class="col-6">
                                 <button class="btn btn-success" id="encrypt-btn" type="button" onclick="EncryptFromUI()">Encrypt</button>
@@ -46,11 +51,6 @@
                             <div class="col-6">
                                 <button class="btn btn-danger" id="dencrypt-btn" type="button" onclick="DecryptFromUI()">Decrypt</button>
                             </div>
-                        </div>
-
-                        <div class="row d-flex m-2">
-                            <p class="card-title">Output</p>
-                            <textarea class="form-control" name="" id="outputArea" cols="30" rows="10"></textarea>
                         </div>
                     </div>
                 </form>
