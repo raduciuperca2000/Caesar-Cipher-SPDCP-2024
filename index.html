@@ -29,23 +29,26 @@
                     </div>
                     <div class="row">
                         <div class="col-6">
-                            <label for="d_value">Valoarea D</label>
+                            <label for="d_value">Numarul de caractere din cheie pentru criptare (D)</label>
                             <input class="form-control" type="number" min="1" id="d_value">
                         </div>
                         <div class="col-6">
-                            <label for="d_value">Valoarea K</label>
-                            <input class="form-control" type="text" id="d_value">
+                            <label for="d_value">Cheia de criptare (K)</label>
+                            <input class="form-control" type="text" id="k_value">
                         </div>
                     </div>
                     <br>
                     <div class="card-footer">
                         <div class="row d-flex">
                             <div class="col-6">
-                                <button class="btn btn-success" type="button">Encrypt</button>
+                                <button class="btn btn-success" id="encrypt-btn" type="button">Encrypt</button>
                             </div>
                             <div class="col-6">
-                                <button class="btn btn-danger" type="button">Decrypt</button>
+                                <button class="btn btn-danger" id="dencrypt-btn" type="button">Decrypt</button>
                             </div>
+                        </div>
+                        <div class="row d-flex m-2">
+                            <textarea class="form-control" name="" id="outputArea" hidden cols="30" rows="10"></textarea>
                         </div>
                     </div>
                 </form>
