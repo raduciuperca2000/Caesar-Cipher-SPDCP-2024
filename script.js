@@ -168,26 +168,6 @@ async function readFileContent(fileDOMElement) {
   
 
 async function readAlphabetFromFile() {
-	// let alphabetFile = alphabetInput.files[0];
-	// if (!alphabetFile) {
-	// 	return Promise.reject(new Error("The alphabet file was not uploaded"));
-	// }
-
-	// let reader = new FileReader();
-	// let alphabetArray = new Set();
-
-	// return new Promise((resolve, reject) => {
-	// 	reader.readAsText(alphabetFile);
-	// 	reader.onload = function(e) {
-	// 		const alphabetExtracted = e.target.result;
-	// 		
-	// 		resolve(alphabetArray);
-	// 	};
-	// 	reader.onerror = function(error) {
-	// 		reject(error);
-	// 	};
-	// });
-
 	const alphabetContentAsString =  await readFileContent(alphabetInput);
 	let alphabetSet = new Set();
 
@@ -199,13 +179,10 @@ async function readAlphabetFromFile() {
 						case " ":
 							break;
 						default:
-							console.log("RT")
 							alphabetSet.add(character);
 							break;
 					}
 				});
-
-		console.log(alphabetSet)
 		return alphabetSet;
 }
 
@@ -218,63 +195,38 @@ function OnAlphabetIsChanged() {
 
 
 
-async function readText() {
-	let textInputFile = textInput.files[0];
-	if (!textInputFile) {
-		errorMessage = errorMessage.concat("The text file was not uploaded");
-		throw new Error("The text file was not uploaded");
-	} else {
-		let reader = new FileReader();
-		let textArray = [];
+async function ValidateTextIsMatchingAlphabet() {
+	try {
+		
+		if(alphabetInput){
+			const textContentAsString =  await readFileContent(textInput);
+			let individualCharacterSet = new Set();
+	
+			Array.from(textContentAsString).forEach(character => {
+				if (character != " ")
+					individualCharacterSet.add(character);
+			});
+			let alphabetSet = await readAlphabetFromFile();
+	
+	
+			if(alphabetSet.length < individualCharacterSet.length){
+				throw new Error ("The text have more unique character than the dictionary");
+			}
+	
+			individualCharacterSet.forEach(chacter => {
+				if (!(alphabetSet.has(chacter)) && chacter != ""){
+					textInput.files[0] = null;
+					throw new Error("One or more elements are not present in the dictionary");
+				}
+			});
+	
+		}else{
+			throw new Error("Text cannot be validated if the alphanet dosen't exist");
+		}
 
-		reader.readAsText(textInputFile);
-		let textToBeReturned = await readAlphabetFromFile().
-        then(
-			((value) => {
-
-                if (!value) {
-                    throw new Error("The dictionary cannot be build")
-                }
-
-
-
-
-                let textToBeReturned = reader.onload = function(e) {
-                    const textExtracted = e.target.result;
-                    let individualCharacterSet = new Set();
-        
-                    Array.from(textExtracted).forEach(character => {
-                        if (character != " ")
-                            individualCharacterSet.add(character);
-                    })
-        
-                    if (individualCharacterSet.size > value.size) {
-                        throw new Error("The message have more unique character than the dictionary");
-                    }
-        
-                    individualCharacterSet.forEach(chacter => {
-                        if (!(value.has(chacter)) && chacter != "") throw new Error("One or more elements are not present in the dictionary");
-                    })
-        
-                    return e.target.result
-                };
-
-
-				return textToBeReturned
-
-
-
-
-
-			}),
-			((error) => {
-				throw new Error(error)
-			})
-		);
-
-
-
-		console.log(textToBeReturned);
-		return textToBeReturned;
+	} catch (error) {
+		alert(`Huston, we have a problem \n${error}`);
 	}
 }
+
+
