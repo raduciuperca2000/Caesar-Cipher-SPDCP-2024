@@ -230,3 +230,26 @@ async function ValidateTextIsMatchingAlphabet() {
 }
 
 
+function EncryptFromUI(){
+	try {
+		// Validate if all fields are populated
+
+		// Validate Text is Matching Alphabet Again
+
+		// Run Function
+
+		// Display Output
+
+
+	} catch (error) {
+		alert(`Huston, we have a problem \n${error}`);
+	}
+}
+
+function DecryptFromUI(){
+	try {
+		
+	} catch (error) {
+		alert(`Huston, we have a problem \n${error}`);
+	}
+}
